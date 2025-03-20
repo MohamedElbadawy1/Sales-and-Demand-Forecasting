@@ -57,6 +57,42 @@ fig1_Slider = dcc.Slider(
                 className="fig1_Slider"
             )
 fig1 = dcc.Graph(id='fig1', className="fig1")
+#-------------------------------------------------------------
+fig3_chart_type = dcc.Dropdown(
+    id='fig3_chart_type',
+    options=[
+        {'label': 'Horizontal Bar Chart', 'value': 'bar'},
+        {'label': 'Treemap', 'value': 'treemap'}
+    ],
+    value='bar',
+    clearable=False,
+    className='fig3_chart_type'
+)
+
+fig3_DropDown = dcc.Dropdown(
+    id= 'fig3_DropDown',
+    options=[
+        {'label':'Sales' ,'value':'Sales'},
+        {'label':'Profit' ,'value':'Profit'},
+        {'label':'Quantity' ,'value':'Quantity'}
+    ],
+    value='Sales',
+    className='fig3_DropdownClass'
+)
+
+fig3_checkList = dcc.Checklist(
+    id='fig3_checkList',
+    options=[{'label': cat, 'value': cat} for cat in sales['Category'].unique()],
+    value=[],
+    className='fig3_checkListClass',
+    inputStyle={"margin-right": "5px", "margin-left": "5px"},
+    labelStyle={"display": "block"}
+)
+
+
+fig3 = dcc.Graph(id='fig3', className="fig3")
+
+#--------------------------------------------------------------------
 
 # ::::::::::::::::::::::::::::::::::::::::::::::: Functions :::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -69,29 +105,29 @@ app.layout = html.Div([
     html.Div([
         html.Div([
             html.Div([
-                html.H3("Total Revenue" , className = "s_h3"),
+                html.H3("Total Revenue", className="s_h3"),
                 html.H2([html.Span("$"), f"{total_revenue}"])
             ], className="summary_div"),
             html.Div([
-                html.H3("Total Profit" , className = "s_h3"),
+                html.H3("Total Profit", className="s_h3"),
                 html.H2([html.Span("$"), f"{total_profit}"])
             ], className="summary_div"),
             html.Div([
-                html.H3("Total Units Sold" , className = "s_h3"),
+                html.H3("Total Units Sold", className="s_h3"),
                 html.H2([html.Span("$"), f"{total_units_sold}"])
             ], className="summary_div"),
         ], className="mini_container"),
         html.Div([
             html.Div([
-                html.H3("Average Discount" , className = "s_h3"),
+                html.H3("Average Discount", className="s_h3"),
                 html.H2([html.Span("%"), f"{avg_discount}"])
             ], className="summary_div"),
             html.Div([
-                html.H3("Total Orders" , className = "s_h3"),
+                html.H3("Total Orders", className="s_h3"),
                 html.H2([f"{total_orders}", html.Span("order")])
             ], className="summary_div"),
             html.Div([
-                html.H3("Average Shipping Time" , className = "s_h3"),
+                html.H3("Average Shipping Time", className="s_h3"),
                 html.H2([f"{avg_shipping_time}", html.Span("days")])
             ], className="summary_div")
         ], className="mini_container")
@@ -106,14 +142,22 @@ app.layout = html.Div([
                 fig1_DataPickerRange,
                 fig1_Dropdown
             ], className="fig1_mini_div"),
-            fig1_Slider, 
+            fig1_Slider,
             fig1
         ], id="first_column"),
         html.Div([
             html.H2("Sales by Region or Market")
         ], id="secound_column")
-    ], id="secound_row")
-], id="body")
+    ], id="secound_row"),
+    html.Div([
+    fig3_DropDown,
+    fig3_checkList,
+    fig3_chart_type
+], className="fig3_mini_div"),
+fig3
+  
+], id="body")  
+
 
 # :::::::::::::::::::::::::::::::::::::::::::::: Callbacks ::::::::::::::::::::::::::::::::::::::::::::::
 @callback(
@@ -142,6 +186,62 @@ def update_graph(start_date, end_date, ma_window, measure):
         margin=dict(l=40, r=40, t=40, b=40)
     )
     return fig1
+
+
+@callback(
+    Output("fig3", "figure"),
+    [
+        Input("fig3_DropDown", "value"),
+        Input("fig3_checkList", "value"),
+        Input("fig3_chart_type", "value")
+    ]
+)
+def update_graph3(measure, selected_category, chart_type):
+    # Ensure a category is selected
+    if not selected_category:
+        return px.bar(title="Please select a Category")
+
+    # If checklist allows only one category, make sure it's handled properly
+    if isinstance(selected_category, list):
+        selected_category = selected_category[0]
+
+    # Filter data to selected category
+    filtered_df = sales[sales['Category'] == selected_category]
+
+    # Group by Sub-Category
+    grouped_df = filtered_df.groupby('Sub-Category').agg({measure: 'sum'}).reset_index()
+
+    # Create the chart
+    if chart_type == 'treemap':
+        fig = px.treemap(
+            grouped_df,
+            path=['Sub-Category'],
+            values=measure,
+            color=measure,
+            title=f'{measure} of Sub-Categories in {selected_category}'
+        )
+    else:
+        fig = px.bar(
+            grouped_df,
+            x=measure,
+            y='Sub-Category',
+            orientation='h',
+            color='Sub-Category',
+            text_auto=True,
+            title=f'{measure} of Sub-Categories in {selected_category}'
+        )
+
+    fig.update_layout(
+        plot_bgcolor=root['background1'],
+        paper_bgcolor=root['background2'],
+        font_color=root['text'],
+        template='plotly_dark',
+        title_x=0.5,
+        margin=dict(l=40, r=40, t=40, b=40)
+    )
+
+    return fig
+
 
 # ::::::::::::::::::::::::::::::::::::::::::::::: Run App :::::::::::::::::::::::::::::::::::::::::::::::
 if __name__ == "__main__":
