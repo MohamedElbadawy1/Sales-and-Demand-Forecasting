@@ -1,4 +1,5 @@
 # ::::::::::::::::::::::::::::::::::::::::::::::: Libraries :::::::::::::::::::::::::::::::::::::::::::::::
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -7,8 +8,8 @@ from dash import dcc, html, Dash, Input, Output, callback
 external_stylesheets = ["https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"]
 
 # :::::::::::::::::::::::::::::::::::::::::::::: Loading Data :::::::::::::::::::::::::::::::::::::::::::::
-main_data = "Data/Data After Milestone 1.csv"
-original_data = "Data/Original Data.csv"
+main_data = "D:/depi/New folder/Sales-and-Demand-Forecasting/Data/Data After Milestone 1.csv"
+original_data = "D:/depi/New folder/Sales-and-Demand-Forecasting/Data/Original Data.csv"
 sales = pd.read_csv(main_data, encoding="latin-1")
 main = pd.read_csv(original_data, encoding="latin-1")
 
@@ -57,6 +58,7 @@ fig1_Slider = dcc.Slider(
                 className="fig1_Slider"
             )
 fig1 = dcc.Graph(id='fig1', className="fig1")
+<<<<<<< HEAD
 #-------------------------------------------------------------
 fig3_chart_type = dcc.Dropdown(
     id='fig3_chart_type',
@@ -93,6 +95,31 @@ fig3_checkList = dcc.Checklist(
 fig3 = dcc.Graph(id='fig3', className="fig3")
 
 #--------------------------------------------------------------------
+=======
+region_dropdown = dcc.Dropdown(
+    id="region_dropdown",
+    options=[
+        {"label": "Region", "value": "Region"},
+        {"label": "Market", "value": "Market"},
+    ],
+    value="Region",  # Default selection
+    className="region_dropdown"
+)
+
+sales_profit_toggle = dcc.RadioItems(
+    id="sales_profit_toggle",
+    options=[
+        {"label": "Sales", "value": "Total_sales"},
+        {"label": "Profit", "value": "Profit"},
+    ],
+    value="Total_sales",
+    className="sales_profit_toggle",
+    inline=True
+)
+
+fig2 = dcc.Graph(id="fig2", className="fig2")
+
+>>>>>>> dbc30758057f4d5a8f1e80d6bb50c96467c6f609
 
 # ::::::::::::::::::::::::::::::::::::::::::::::: Functions :::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -137,14 +164,28 @@ app.layout = html.Div([
     html.Br(),
     html.Div([
         html.Div([
-            html.H2("Sales & Profit Over Time"),
             html.Div([
+<<<<<<< HEAD
                 fig1_DataPickerRange,
                 fig1_Dropdown
             ], className="fig1_mini_div"),
             fig1_Slider,
             fig1
         ], id="first_column"),
+=======
+                html.H2("Sales & Profit Over Time"),
+                html.Div([fig1_DataPickerRange, fig1_Dropdown], className="fig1_mini_div"),
+                fig1_Slider,
+                fig1
+            ], id="first_column"),
+
+            html.Div([
+                html.H2("Sales by Region or Market"),
+                html.Div([region_dropdown, sales_profit_toggle], className="fig2_controls"),
+                fig2
+            ], id="secound_column_new")
+        ], id="secound_row_new"),
+>>>>>>> dbc30758057f4d5a8f1e80d6bb50c96467c6f609
         html.Div([
             html.H2("Sales by Region or Market")
         ], id="secound_column")
@@ -189,6 +230,7 @@ def update_graph(start_date, end_date, ma_window, measure):
 
 
 @callback(
+<<<<<<< HEAD
     Output("fig3", "figure"),
     [
         Input("fig3_DropDown", "value"),
@@ -236,11 +278,37 @@ def update_graph3(measure, selected_category, chart_type):
         paper_bgcolor=root['background2'],
         font_color=root['text'],
         template='plotly_dark',
+=======
+    Output("fig2", "figure"),
+    [Input("region_dropdown", "value"), Input("sales_profit_toggle", "value")]
+)
+def update_sales_by_region(selected_category, selected_metric):
+    # Grouping Data
+    grouped_df = sales.groupby(selected_category)[selected_metric].sum().reset_index()
+
+    # Creating the Bar Chart
+    fig2 = px.bar(grouped_df, x=selected_category, y=selected_metric,
+                  title=f"{selected_metric} by {selected_category}",
+                  color=selected_category, text_auto=True)
+
+    # Updating Style
+    fig2.update_layout(
+        plot_bgcolor=root["background1"],
+        paper_bgcolor=root["background2"],
+        font_color=root["text"],
+        xaxis_title=selected_category,
+        yaxis_title=selected_metric,
+        template="plotly_dark",
+>>>>>>> dbc30758057f4d5a8f1e80d6bb50c96467c6f609
         title_x=0.5,
         margin=dict(l=40, r=40, t=40, b=40)
     )
 
+<<<<<<< HEAD
     return fig
+=======
+    return fig2
+>>>>>>> dbc30758057f4d5a8f1e80d6bb50c96467c6f609
 
 
 # ::::::::::::::::::::::::::::::::::::::::::::::: Run App :::::::::::::::::::::::::::::::::::::::::::::::
