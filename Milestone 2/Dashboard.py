@@ -99,13 +99,13 @@ fig3_DropDown = dcc.Dropdown(
         {'label':'Quantity' ,'value':'Quantity'}
     ],
     value='Sales',
-    className='fig3_DropdownClass'
+    className='fig3_Dropdown'
 )
 fig3_checkList = dcc.Checklist(
     id='fig3_checkList',
     options=[{'label': cat, 'value': cat} for cat in sales['Category'].unique()],
-    value=[],
-    className='fig3_checkListClass',
+    value=["Technology", "Furniture", "Office Supplies"],
+    className='fig3_checkList',
     inputStyle={"margin-right": "5px", "margin-left": "5px"},
     labelStyle={"display": "block"}
 )
@@ -175,7 +175,13 @@ app.layout = html.Div([
     html.Br(),
     html.Div([
         html.Div([
-            
+            html.H2("Top Performing Products and Categories"),
+            html.Div([
+                fig3_Dropdown1,
+                fig3_DropDown
+            ], className="fig3_mini_div"),
+            fig3_checkList,
+            fig3
         ], className="first_column"),
         html.Div([
 
@@ -241,7 +247,6 @@ def update_sales_by_region(selected_category, selected_metric):
             color=selected_category,
             text_auto=True
         )
-
     # Apply the same dashboard styling
     fig2.update_layout(
         plot_bgcolor=root["background1"],
@@ -255,6 +260,50 @@ def update_sales_by_region(selected_category, selected_metric):
     )
     return fig2
 
+@callback(
+    Output("fig3", "figure"),
+    [
+        Input("fig3_Dropdown1", "value"),
+        Input("fig3_DropDown", "value"),
+        Input("fig3_checkList", "value")
+    ]
+)
+def update_graph3(chart_type, measure, selected_categories):
+    # Filter data to selected categories
+    filtered_df = sales[sales['Category'].isin(selected_categories)]
+
+    # Group by Category and Sub-Category
+    grouped_df = filtered_df.groupby(['Category', 'Sub-Category'])[measure].sum().reset_index()
+
+    # Create the chart
+    if chart_type == 'treemap':
+        fig = px.treemap(
+            grouped_df,
+            path=['Category', 'Sub-Category'],
+            values=measure,
+            color=measure,
+            title=f'{measure} by Category and Sub-Category'
+        )
+    else:
+        fig = px.bar(
+            grouped_df,
+            x=measure,
+            y='Sub-Category',
+            orientation='h',
+            color='Category',
+            text_auto=True,
+            title=f'{measure} by Category and Sub-Category'
+        )
+
+    fig.update_layout(
+        plot_bgcolor=root['background1'],
+        paper_bgcolor=root['background2'],
+        font_color=root['text'],
+        template='plotly_dark',
+        margin=dict(l=40, r=40, t=40, b=40)
+    )
+    
+    return fig
 
 # ::::::::::::::::::::::::::::::::::::::::::::::: Run App :::::::::::::::::::::::::::::::::::::::::::::::
 if __name__ == "__main__":
