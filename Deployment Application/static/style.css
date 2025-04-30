@@ -1,0 +1,27 @@
+:root {
+    --text: #2d3748; 
+    --text2: #1d4ed8;  
+    --text3: #64748b;    
+    --background1: #f8fafc;
+    --background2: #ffffff;   
+    --background3: #e2e8f0e2;  
+    --primary: #3b82f6;    
+    --secondary: #22c55e;   
+    --accent: #f59e0b;        
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--background1);
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
