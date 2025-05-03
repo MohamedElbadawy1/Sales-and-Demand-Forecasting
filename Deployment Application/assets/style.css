@@ -1,0 +1,97 @@
+:root {
+    --text: #2d3748;      
+    --text2: #1d4ed8;  
+    --text3: #64748b;    
+    --background1: #f8fafc;
+    --background2: #ffffff;   
+    --background3: #e2e8f0e2;  
+    --primary: #3b82f6;    
+    --secondary: #22c55e;   
+    --accent: #f59e0b;        
+}
+
+/* input text */
+.st-ba{
+    height: 50px;
+    width: 80%;
+}
+
+/* input text size */
+.st-ay {
+    font-size: 25px;
+}
+
+.st-emotion-cache-ocqkz7{
+    width: 100% ;
+}
+
+.st-emotion-cache-qo90to{
+    background-color: var(--background3);
+    padding: 15px 10px 15px 30px;
+    border-radius: 10px;
+}
+
+.st-emotion-cache-1lfxoww{
+    background-color: var(--background3);
+    padding: 15px 10px 15px 30px;
+    border-radius: 10px;
+    color: var(--text);
+}
+
+.st-emotion-cache-1r6slb0{
+    background-color: var(--background3);
+    padding: 15px 10px 15px 30px;
+    border-radius: 10px;
+    color: var(--text);
+}
+
+.block-container {
+    width: 90vw;
+    max-width: none;
+}
+
+.stApp {
+    background-color: var(--background1);
+}
+
+.stTextInput > div > div > input {
+    background-color: var(--background3);
+    color: var(--text);
+    border: 2px solid var(--text2);
+    border-radius: 5px;
+}
+
+.stButton > button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    margin-top: 20px;
+
+    p{
+        font-size: 20px;
+    }
+}
+
+.stButton > button:hover {
+    background-color: var(--text2);
+}
+
+/* Container styling */
+.css-1r6slb0 {
+    background-color: #2d2d2d;
+    border: 1px solid #666;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+}
+
+/* Prediction result container */
+.css-1r6slb0 > div:last-child {
+    background-color: #2d2d2d;
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+}
