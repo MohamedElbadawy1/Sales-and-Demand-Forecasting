@@ -194,10 +194,10 @@ app.layout = html.Div([
             html.Div([
                 fig1
             ], className="chart"),
-            html.Div([
-                html.Div([]),
-                html.Div([]),
-            ], className="insights"),
+            # html.Div([
+            #     html.Div([]),
+            #     html.Div([]),
+            # ], className="insights"),
         ], className="content"),
     ], id="second_row"),
     html.Br(),
@@ -214,10 +214,10 @@ app.layout = html.Div([
             html.Div([
                 fig2
             ], className="chart"),
-            html.Div([
-                html.Div([]),
-                html.Div([]),
-            ], className="insights"),
+            # html.Div([
+            #     html.Div([]),
+            #     html.Div([]),
+            # ], className="insights"),
         ], className="content"),
     ], id="third_row"),
     html.Br(),
@@ -235,10 +235,10 @@ app.layout = html.Div([
             html.Div([
                 fig3
             ], className="chart"),
-            html.Div([
-                html.Div([]),
-                html.Div([]),
-            ], className="insights"),
+            # html.Div([
+            #     html.Div([]),
+            #     html.Div([]),
+            # ], className="insights"),
         ], className="content"),
     ], id="fourth_row"),
     html.Br(),
@@ -255,10 +255,10 @@ app.layout = html.Div([
             html.Div([
                 fig4
             ], className="chart"),
-            html.Div([
-                html.Div([]),
-                html.Div([]),
-            ], className="insights"),
+            # html.Div([
+            #     html.Div([]),
+            #     html.Div([]),
+            # ], className="insights"),
         ], className="content"),
     ], id="fifth_row"),
     html.Br(),
@@ -275,10 +275,10 @@ app.layout = html.Div([
             html.Div([
                 fig5
             ], className="chart"),
-            html.Div([
-                html.Div([]),
-                html.Div([]),
-            ], className="insights"),
+            # html.Div([
+            #     html.Div([]),
+            #     html.Div([]),
+            # ], className="insights"),
         ], className="content"),
     ], id="sixth_row"),
     html.Br(),
