@@ -1,0 +1,146 @@
+:root {
+    --text: #2d3748;
+    --text2: #1d4ed8;
+    --text3: #64748b;
+    --background1: #f8fafc;
+    --background2: #ffffff;
+    --background3: #e2e8f0e2;
+    --primary: #3b82f6;
+    --secondary: #22c55e;
+    --accent: #f59e0b;
+}
+
+/* General body */
+body {
+    background-color: var(--background1);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Titles and headers */
+h1, h2, h3, h4 {
+    color: var(--primary);
+}
+h1{
+    color: var(--primary);
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 0 0 20px 0;
+}
+
+/* Streamlit components */
+.stApp {
+    background-color: var(--background1);
+    padding: 2rem;
+}
+
+/* Buttons */
+button, .stButton > button {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .stButton > button:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* Inputs */
+input, select, textarea {
+    background-color: var(--background2);
+    border: 1px solid var(--background3);
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: var(--text);
+    width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Metric output */
+[data-testid="metric-container"] {
+    background-color: var(--background2);
+    border: 1px solid var(--background3);
+    padding: 1rem;
+    border-radius: 10px;
+    color: var(--text);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Forms & Columns */
+.stForm, .stColumn {
+    background-color: var(--background2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--background3);
+}
+
+/* Tables */
+.stDataFrame {
+    background-color: var(--background2);
+    color: var(--text);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead tr {
+    background-color: var(--primary);
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--background3);
+}
+
+tbody tr:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* Link button */
+a[href^="https://"] {
+    color: var(--background1);
+    font-weight: bold;
+    text-decoration: none;
+    background-color: var(--primary);
+    
+    p{
+        font-size: 25px;
+        padding: 10px;
+    }
+}
+
+a[href^="https://"]:hover {
+    color: var(--accent);
+    background-color: var(--text2);
+    text-decoration: underline;
+}
+
+.st-emotion-cache-r421ms{
+    width: 100% !important;
+}
+
+.st-emotion-cache-12lk024, .st-emotion-cache-7k8j3i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.st-emotion-cache-1wivap2{
+    font-size: 100px;
+    color: var(--text);
+    text-align: center;
+}
