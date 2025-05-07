@@ -1,0 +1,13 @@
+name: regression-models-env
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - pandas
+      - scikit-learn
+      - xgboost
+      - mlflow
+      - numpy
+
