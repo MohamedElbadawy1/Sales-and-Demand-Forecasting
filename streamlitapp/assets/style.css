@@ -12,6 +12,11 @@
 
 /* General body */
 body {
+
+
+
+
+
     background-color: var(--background1);
     color: var(--text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -140,7 +145,7 @@ a[href^="https://"]:hover {
 }
 
 .st-emotion-cache-1wivap2{
-    font-size: 100px;
+    font-size: 40px;
     color: var(--text);
     text-align: center;
 }
