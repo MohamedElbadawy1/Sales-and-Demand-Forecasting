@@ -1,21 +1,23 @@
-name: regressor-mlflow-project
+name: sales_forecasting
 
 conda_env: conda.yaml
 
 entry_points:
   main:
     parameters:
-      model_name: {type: str, default: "XGBoost"}
-      n_estimators: {type: int, default: 300}
-      max_depth: {type: int, default: 5}
-      learning_rate: {type: float, default: 0.05}
-      gamma: {type: float, default: 0}
-      reg_alpha: {type: float, default: 1}
-      reg_lambda: {type: float, default: 2}
-      subsample: {type: float, default: 0.8}
-      colsample_bytree: {type: float, default: 0.8}
+      data_path: { type: str, default: "Original Data.csv" }
+      model_name: { type: str, default: "XGBoost" }
+      n_estimators: { type: int, default: 300 }
+      max_depth: { type: int, default: 5 }
+      learning_rate: { type: float, default: 0.05 }
+      gamma: { type: float, default: 0 }
+      reg_alpha: { type: float, default: 1 }
+      reg_lambda: { type: float, default: 2 }
+      subsample: { type: float, default: 0.8 }
+      colsample_bytree: { type: float, default: 0.8 }
     command: >
       python train.py 
+      --data_path {data_path}
       --model_name {model_name}
       --n_estimators {n_estimators}
       --max_depth {max_depth}

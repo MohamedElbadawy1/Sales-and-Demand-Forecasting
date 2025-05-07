@@ -1,4 +1,4 @@
-name: regression-models-env
+name: sales-env
 channels:
   - defaults
 dependencies:
@@ -10,4 +10,3 @@ dependencies:
       - xgboost
       - mlflow
       - numpy
-

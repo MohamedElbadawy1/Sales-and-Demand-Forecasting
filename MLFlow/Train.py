@@ -7,7 +7,52 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
-from sklearn.datasets import load_diabetes
+from sklearn.preprocessing import LabelEncoder
+
+
+def preprocess_data(csv_path):
+    sales = pd.read_csv('Original Data.csv', encoding='latin-1')
+
+    # Drop unnecessary columns
+    sales.drop(columns=['Row ID', 'Order ID', 'Customer ID', 'Postal Code', 'Product ID'], inplace=True)
+
+    # Convert dates
+    sales['Order Date'] = pd.to_datetime(sales['Order Date'], dayfirst=True)
+    sales['Ship Date'] = pd.to_datetime(sales['Ship Date'], dayfirst=True)
+
+    # Feature engineering
+    sales['Month'] = sales['Order Date'].dt.month
+    sales['Year'] = sales['Order Date'].dt.year
+    sales['Day_of_Week'] = sales['Order Date'].dt.dayofweek
+    sales['Is_Weekend'] = sales['Day_of_Week'].isin([5, 6]).astype(int)
+    sales['Day_of_Month'] = sales['Order Date'].dt.day
+
+    # Calculate target column
+    sales['Total_sales'] = sales['Sales'] * sales['Quantity']
+
+    # Encode categorical columns
+    encoder = LabelEncoder()
+    categorical_columns = ['Order Priority', 'Ship Mode', 'Segment', 'Market', 'Category', 'Region', 'Product Name', 'City', 'State', 'Country']
+    for col in categorical_columns:
+        if col in sales.columns:
+            sales[col] = encoder.fit_transform(sales[col].astype(str))
+
+    # Sort by date to create lag features
+    sales.sort_values('Order Date', inplace=True)
+    sales['Sales_Lag_1D'] = sales['Total_sales'].shift(1)
+    sales['Sales_Lag_7D'] = sales['Total_sales'].shift(7)
+    sales['Sales_Lag_30D'] = sales['Total_sales'].shift(30)
+    sales['Sales_Lag_90D'] = sales['Total_sales'].shift(90)
+
+    # Drop NA rows from lag features
+    sales.dropna(inplace=True)
+
+    # Drop target from features
+    X = sales.drop('Total_sales', axis=1)
+    y = sales['Total_sales']
+
+    return train_test_split(X, y, test_size=0.2, random_state=30)
+
 
 def get_model(name, args):
     if name == "RandomForest":
@@ -38,20 +83,16 @@ def get_model(name, args):
     else:
         raise ValueError("Invalid model name.")
 
+
 def main(args):
     mlflow.start_run()
     mlflow.log_param("model_name", args.model_name)
 
-    # Log all passed arguments as params
     for arg, value in vars(args).items():
         if arg != "model_name":
             mlflow.log_param(arg, value)
 
-    data = load_diabetes()
-    X = pd.DataFrame(data.data, columns=data.feature_names)
-    y = pd.Series(data.target)
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = preprocess_data(args.data_path)
 
     model = get_model(args.model_name, args)
     model.fit(X_train, y_train)
@@ -71,8 +112,10 @@ def main(args):
     print(f"Model: {args.model_name}, RMSE: {rmse:.4f}, MAE: {mae:.4f}, R²: {r2:.4f}")
     mlflow.end_run()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--data_path", type=str, default="Original Data.csv")
     parser.add_argument("--model_name", type=str, default="XGBoost")
     parser.add_argument("--n_estimators", type=int, default=300)
     parser.add_argument("--max_depth", type=int, default=5)
