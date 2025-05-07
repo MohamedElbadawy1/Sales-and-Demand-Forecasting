@@ -31,10 +31,10 @@ FEATURE_MAPPINGS = {
 }
 
 # Load model
-@st.cache_resource
 def load_model():
+    model_path = pathlib.Path(__file__).parent / "xgboost_sales_model.pkl"
     try:
-        with open('xgboost_sales_model.pkl', 'rb') as file:
+        with open(model_path, 'rb') as file:
             return pickle.load(file)
     except Exception as e:
         st.error(f"Error loading model: {str(e)}")
