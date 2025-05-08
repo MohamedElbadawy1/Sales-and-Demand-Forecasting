@@ -8,7 +8,7 @@ import pathlib
 st.set_page_config(page_title="Sales Prediction App", page_icon="📈", layout="wide")
 
 # External link button
-st.link_button("Sales Dashboard", "https://m0cb9t85-2020.uks1.devtunnels.ms/")
+st.link_button("Sales Dashboard", "https://sales-dashboard-application.streamlit.app/")
 
 def load_CSS(file_path):
     with open(file_path) as f:
