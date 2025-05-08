@@ -5,7 +5,11 @@ conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      data_path: { type: str, default: "Original Data.csv" }
+      data_path:
+        {
+          type: str,
+          default: "C:/Users/Bakka/Downloads/Final Project/Sales-and-Demand-Forecasting/Data/Original Data.csv",
+        }
       model_name: { type: str, default: "XGBoost" }
       n_estimators: { type: int, default: 300 }
       max_depth: { type: int, default: 5 }

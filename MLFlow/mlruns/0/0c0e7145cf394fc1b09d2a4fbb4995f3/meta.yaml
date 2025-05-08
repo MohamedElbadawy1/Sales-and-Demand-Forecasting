@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/0c0e7145cf394fc1b09d2a4fbb4995f3/artifacts
+end_time: 1746658546550
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0c0e7145cf394fc1b09d2a4fbb4995f3
+run_name: resilient-grub-14
+run_uuid: 0c0e7145cf394fc1b09d2a4fbb4995f3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746658531588
+status: 4
+tags: []
+user_id: Bakka
