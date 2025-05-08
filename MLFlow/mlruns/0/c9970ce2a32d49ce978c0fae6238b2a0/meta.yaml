@@ -1,9 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/c9970ce2a32d49ce978c0fae6238b2a0/artifacts
-deleted_time: null
+deleted_time: 1746707365876
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: c9970ce2a32d49ce978c0fae6238b2a0
 run_name: handsome-chimp-297
 run_uuid: c9970ce2a32d49ce978c0fae6238b2a0

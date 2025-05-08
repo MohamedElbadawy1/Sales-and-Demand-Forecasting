@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/63a799ffbe4f485aa3bc14dfb481faf8/artifacts
+deleted_time: 1746707365953
 end_time: 1746656326063
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 63a799ffbe4f485aa3bc14dfb481faf8
 run_name: vaunted-goose-570
 run_uuid: 63a799ffbe4f485aa3bc14dfb481faf8

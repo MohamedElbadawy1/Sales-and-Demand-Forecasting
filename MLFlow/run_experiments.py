@@ -1,31 +1,44 @@
-import itertools
-import subprocess
+import argparse
+import mlflow
+import os
 
-param_grid = {
-    "model_name": ["XGBoost", "RandomForest", "GradientBoosting"],
-    "n_estimators": [100, 300],
-    "max_depth": [3, 5],
-    "learning_rate": [0.05],
-    "gamma": [0],
-    "reg_alpha": [1],
-    "reg_lambda": [2],
-    "subsample": [0.8],
-    "colsample_bytree": [0.8]
-}
+def run_experiment(args):
+    if not os.path.exists("Original Data.csv"):
+        raise FileNotFoundError("Original Data.csv not found in current directory")
+    
+    mlflow.set_experiment("Sales_Forecasting")
+    
 
-keys, values = zip(*param_grid.items())
-experiments = [dict(zip(keys, v)) for v in itertools.product(*values)]
+    run = mlflow.run(
+        ".",
+        entry_point="main",
+        parameters={
+            "model_name": args.model_name,
+            "n_estimators": args.n_estimators,
+            "max_depth": args.max_depth,
+            "learning_rate": args.learning_rate,
+            "gamma": args.gamma,
+            "reg_alpha": args.reg_alpha,
+            "reg_lambda": args.reg_lambda,
+            "subsample": args.subsample,
+            "colsample_bytree": args.colsample_bytree
+        },
+    )
 
-data_path = "C:/Users/Bakka/Downloads/Final Project/Sales-and-Demand-Forecasting/Data/Original Data.csv"
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Run sales forecasting experiments')
+    
 
-for i, exp in enumerate(experiments):
-    print(f"\n Running experiment {i+1}/{len(experiments)} with parameters: {exp}")
-
-    cmd = [
-        "mlflow", "run", ".",
-        "-P", f"data_path={data_path}"
-    ]
-    for key, val in exp.items():
-        cmd += ["-P", f"{key}={val}"]
-
-    subprocess.run(cmd)
+    parser.add_argument("--model_name", type=str, default="XGBoost")
+    parser.add_argument("--n_estimators", type=int, default=300)
+    parser.add_argument("--max_depth", type=int, default=5)
+    parser.add_argument("--learning_rate", type=float, default=0.05)
+    parser.add_argument("--gamma", type=float, default=0)
+    parser.add_argument("--reg_alpha", type=float, default=1)
+    parser.add_argument("--reg_lambda", type=float, default=2)
+    parser.add_argument("--subsample", type=float, default=0.8)
+    parser.add_argument("--colsample_bytree", type=float, default=0.8)
+    
+    args = parser.parse_args()
+    
+    run_experiment(args)

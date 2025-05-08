@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/d83f4ea487a04a2a80eaabd9e36b973b/artifacts
+deleted_time: 1746707365921
 end_time: 1746656233173
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: d83f4ea487a04a2a80eaabd9e36b973b
 run_name: clumsy-seal-768
 run_uuid: d83f4ea487a04a2a80eaabd9e36b973b

@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/355a9dba6f6546838f69759d783b9e2e/artifacts
+deleted_time: 1746707365924
 end_time: 1746656258503
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 355a9dba6f6546838f69759d783b9e2e
 run_name: sassy-donkey-655
 run_uuid: 355a9dba6f6546838f69759d783b9e2e

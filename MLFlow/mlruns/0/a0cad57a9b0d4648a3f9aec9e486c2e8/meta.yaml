@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/a0cad57a9b0d4648a3f9aec9e486c2e8/artifacts
+deleted_time: 1746707366023
 end_time: 1746663371333
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: a0cad57a9b0d4648a3f9aec9e486c2e8
 run_name: caring-calf-91
 run_uuid: a0cad57a9b0d4648a3f9aec9e486c2e8

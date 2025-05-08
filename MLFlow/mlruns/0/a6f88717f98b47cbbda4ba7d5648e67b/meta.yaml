@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/a6f88717f98b47cbbda4ba7d5648e67b/artifacts
+deleted_time: 1746707365884
 end_time: 1746579463747
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: a6f88717f98b47cbbda4ba7d5648e67b
 run_name: stylish-sheep-901
 run_uuid: a6f88717f98b47cbbda4ba7d5648e67b

@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/a1717f3c799e4d4e84ecc66a98b04ae3/artifacts
+deleted_time: 1746707365961
 end_time: 1746656377205
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: a1717f3c799e4d4e84ecc66a98b04ae3
 run_name: legendary-chimp-337
 run_uuid: a1717f3c799e4d4e84ecc66a98b04ae3

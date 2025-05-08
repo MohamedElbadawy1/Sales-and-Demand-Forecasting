@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/953136993141947768/624d79ca2d6343da97c413896d8cb80a/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '953136993141947768'
+lifecycle_stage: active
+run_id: 624d79ca2d6343da97c413896d8cb80a
+run_name: popular-moose-741
+run_uuid: 624d79ca2d6343da97c413896d8cb80a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746708399088
+status: 1
+tags: []
+user_id: Bakka

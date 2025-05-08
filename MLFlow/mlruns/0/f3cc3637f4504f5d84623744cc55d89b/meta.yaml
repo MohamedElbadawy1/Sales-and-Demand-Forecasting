@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/f3cc3637f4504f5d84623744cc55d89b/artifacts
+deleted_time: 1746707366002
 end_time: 1746659048991
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: f3cc3637f4504f5d84623744cc55d89b
 run_name: adaptable-calf-853
 run_uuid: f3cc3637f4504f5d84623744cc55d89b

@@ -1,0 +1,16 @@
+artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/feb30b0483d241b09cd7af1c1b5fd9c5/artifacts
+deleted_time: 1746707365826
+end_time: 1746705887055
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: feb30b0483d241b09cd7af1c1b5fd9c5
+run_name: nimble-dolphin-798
+run_uuid: feb30b0483d241b09cd7af1c1b5fd9c5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746705870297
+status: 3
+tags: []
+user_id: Bakka

@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/de119505c21d483fb87808a5221702d3/artifacts
+deleted_time: 1746707366023
 end_time: 1746660220113
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: de119505c21d483fb87808a5221702d3
 run_name: zealous-newt-537
 run_uuid: de119505c21d483fb87808a5221702d3

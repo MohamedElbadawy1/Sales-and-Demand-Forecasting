@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/100f765d57c74bebb62ef0632eb7e640/artifacts
+deleted_time: 1746707365978
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 100f765d57c74bebb62ef0632eb7e640
 run_name: ambitious-vole-852
 run_uuid: 100f765d57c74bebb62ef0632eb7e640

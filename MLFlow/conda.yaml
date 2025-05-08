@@ -1,12 +1,13 @@
 name: sales-env
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.12
   - pip
   - pip:
-      - pandas
-      - scikit-learn
-      - xgboost
       - mlflow
+      - pandas
       - numpy
+      - scikit-learn
+      - xgboos

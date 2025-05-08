@@ -1,6 +1,5 @@
 import json
 import os
-
 import argparse
 import pandas as pd
 import numpy as np
@@ -12,50 +11,49 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
 from sklearn.preprocessing import LabelEncoder
 
-def preprocess_data(csv_path):
-    sales = pd.read_csv(csv_path, encoding='latin-1')
-
-    # Drop unnecessary columns
+def preprocess_data():
+    sales = pd.read_csv('Original Data.csv', encoding='latin-1')
+    
+    mlflow.log_param("data_file", "Original Data.csv")
+    mlflow.log_param("data_shape", sales.shape)
+    mlflow.log_param("data_columns", list(sales.columns))
+    
     sales.drop(columns=['Row ID', 'Order ID', 'Customer ID', 'Postal Code', 'Product ID'], inplace=True)
 
-    # Convert dates
-    sales['Order Date'] = pd.to_datetime(sales['Order Date'], dayfirst=True)
-    sales['Ship Date'] = pd.to_datetime(sales['Ship Date'], dayfirst=True)
-
-    # Feature engineering
-    sales['Month'] = sales['Order Date'].dt.month
-    sales['Year'] = sales['Order Date'].dt.year
-    sales['Day_of_Week'] = sales['Order Date'].dt.dayofweek
-    sales['Is_Weekend'] = sales['Day_of_Week'].isin([5, 6]).astype(int)
-    sales['Day_of_Month'] = sales['Order Date'].dt.day
-
-    # Calculate target column
-    sales['Total_sales'] = sales['Sales'] * sales['Quantity']
-
-    # Encode categorical columns
     encoder = LabelEncoder()
-    categorical_columns = ['Order Priority', 'Ship Mode', 'Segment', 'Market', 'Category', 'Region', 'Product Name', 'City', 'State', 'Country']
+    categorical_columns = ['Order Priority', 'Ship Mode', 'Segment', 'Market', 
+                         'Category', 'Region', 'Product Name', 'City', 'State', 
+                         'Country', 'Customer Name', 'Sub-Category']
+    
     for col in categorical_columns:
         if col in sales.columns:
             sales[col] = encoder.fit_transform(sales[col].astype(str))
+    
+    sales['Order Date'] = (pd.to_datetime(sales['Order Date']) - pd.Timestamp('1970-01-01')).dt.days
+    sales['Ship Date'] = (pd.to_datetime(sales['Ship Date']) - pd.Timestamp('1970-01-01')).dt.days
 
-    # Sort by date to create lag features
+    sales['Month'] = pd.to_datetime(sales['Order Date'], unit='D').dt.month
+    sales['Year'] = pd.to_datetime(sales['Order Date'], unit='D').dt.year
+    sales['Day_of_Week'] = pd.to_datetime(sales['Order Date'], unit='D').dt.dayofweek
+    sales['Is_Weekend'] = sales['Day_of_Week'].isin([5, 6]).astype(int)
+    sales['Day_of_Month'] = pd.to_datetime(sales['Order Date'], unit='D').dt.day
+
+
+    sales['Total_sales'] = sales['Sales'] * sales['Quantity']
+
     sales.sort_values('Order Date', inplace=True)
     sales['Sales_Lag_1D'] = sales['Total_sales'].shift(1)
     sales['Sales_Lag_7D'] = sales['Total_sales'].shift(7)
     sales['Sales_Lag_30D'] = sales['Total_sales'].shift(30)
     sales['Sales_Lag_90D'] = sales['Total_sales'].shift(90)
 
-    # Drop NA rows from lag features
     sales.dropna(inplace=True)
 
-    # Drop target from features
     X = sales.drop('Total_sales', axis=1)
     y = sales['Total_sales']
 
     return train_test_split(X, y, test_size=0.2, random_state=30)
-
-
+    
 def get_model(name, args):
     if name == "RandomForest":
         return RandomForestRegressor(
@@ -85,17 +83,16 @@ def get_model(name, args):
     else:
         raise ValueError("Invalid model name.")
 
-
 def main(args):
     mlflow.start_run()
-    mlflow.log_param("model_name", args.model_name)
-
-    for arg, value in vars(args).items():
-        if arg != "model_name":
-            mlflow.log_param(arg, value)
-
-    X_train, X_test, y_train, y_test = preprocess_data(args.data_path)
-
+    
+    mlflow.log_params(vars(args))
+    
+    X_train, X_test, y_train, y_test = preprocess_data()
+    
+    mlflow.log_metric("train_size", X_train.shape[0])
+    mlflow.log_metric("test_size", X_test.shape[0])
+    
     model = get_model(args.model_name, args)
     model.fit(X_train, y_train)
 
@@ -105,19 +102,26 @@ def main(args):
     mae = mean_absolute_error(y_test, preds)
     r2 = r2_score(y_test, preds)
 
-    mlflow.log_metric("rmse", rmse)
-    mlflow.log_metric("mae", mae)
-    mlflow.log_metric("r2", r2)
+    mlflow.log_metrics({
+        "rmse": rmse,
+        "mae": mae,
+        "r2": r2
+    })
+
 
     mlflow.sklearn.log_model(model, "model")
+    
+
+    sample_data = pd.concat([X_train.head(100), y_train.head(100)], axis=1)
+    mlflow.log_table(sample_data, "data_sample.json")
+
+    mlflow.log_artifact('Original Data.csv', "input_data")
 
     print(f"Model: {args.model_name}, RMSE: {rmse:.4f}, MAE: {mae:.4f}, R²: {r2:.4f}")
     mlflow.end_run()
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="C:/Users/Bakka/Downloads/Final Project/Sales-and-Demand-Forecasting/Data/Original Data.csv")
     parser.add_argument("--model_name", type=str, default="XGBoost")
     parser.add_argument("--n_estimators", type=int, default=300)
     parser.add_argument("--max_depth", type=int, default=5)
@@ -127,6 +131,7 @@ if __name__ == "__main__":
     parser.add_argument("--reg_lambda", type=float, default=2)
     parser.add_argument("--subsample", type=float, default=0.8)
     parser.add_argument("--colsample_bytree", type=float, default=0.8)
+    
     args = parser.parse_args()
-
+    
     main(args)

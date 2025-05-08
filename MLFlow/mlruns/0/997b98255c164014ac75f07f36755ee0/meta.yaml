@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/997b98255c164014ac75f07f36755ee0/artifacts
+deleted_time: 1746707365889
 end_time: 1746579507117
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 997b98255c164014ac75f07f36755ee0
 run_name: crawling-worm-372
 run_uuid: 997b98255c164014ac75f07f36755ee0

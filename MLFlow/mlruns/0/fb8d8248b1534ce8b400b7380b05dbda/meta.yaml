@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/fb8d8248b1534ce8b400b7380b05dbda/artifacts
+deleted_time: 1746707366025
 end_time: 1746663391523
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: fb8d8248b1534ce8b400b7380b05dbda
 run_name: fearless-crab-149
 run_uuid: fb8d8248b1534ce8b400b7380b05dbda

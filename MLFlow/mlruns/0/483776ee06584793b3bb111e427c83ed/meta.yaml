@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/Bakka/Downloads/Final%20Project/Sales-and-Demand-Forecasting/MLFlow/mlruns/0/483776ee06584793b3bb111e427c83ed/artifacts
+deleted_time: 1746707365998
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 483776ee06584793b3bb111e427c83ed
 run_name: traveling-moth-864
 run_uuid: 483776ee06584793b3bb111e427c83ed
