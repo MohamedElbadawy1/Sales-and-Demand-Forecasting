@@ -149,3 +149,23 @@ a[href^="https://"]:hover {
     color: var(--text);
     text-align: center;
 }
+
+.st-ae, .st-bt{
+    background-color: #f0f2f6 !important;
+    color: var(--text) !important;
+    font-weight: 500;
+
+    svg{
+        color: var(--text);
+    }
+}
+
+.step-down, .st-emotion-cache-1hgxyac{
+    background-color: #f0f2f6 !important;
+
+    svg{
+        color: var(--text);
+    }
+}
+
+
