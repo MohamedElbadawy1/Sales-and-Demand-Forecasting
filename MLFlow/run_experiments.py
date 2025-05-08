@@ -16,7 +16,7 @@ param_grid = {
 keys, values = zip(*param_grid.items())
 experiments = [dict(zip(keys, v)) for v in itertools.product(*values)]
 
-data_path = "Original Data.csv"
+data_path = "C:/Users/Bakka/Downloads/Final Project/Sales-and-Demand-Forecasting/Data/Original Data.csv"
 
 for i, exp in enumerate(experiments):
     print(f"\n Running experiment {i+1}/{len(experiments)} with parameters: {exp}")

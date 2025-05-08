@@ -1,3 +1,6 @@
+import json
+import os
+
 import argparse
 import pandas as pd
 import numpy as np
@@ -9,9 +12,8 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
 from sklearn.preprocessing import LabelEncoder
 
-
 def preprocess_data(csv_path):
-    sales = pd.read_csv('Original Data.csv', encoding='latin-1')
+    sales = pd.read_csv(csv_path, encoding='latin-1')
 
     # Drop unnecessary columns
     sales.drop(columns=['Row ID', 'Order ID', 'Customer ID', 'Postal Code', 'Product ID'], inplace=True)
@@ -115,7 +117,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="Original Data.csv")
+    parser.add_argument("--data_path", type=str, default="C:/Users/Bakka/Downloads/Final Project/Sales-and-Demand-Forecasting/Data/Original Data.csv")
     parser.add_argument("--model_name", type=str, default="XGBoost")
     parser.add_argument("--n_estimators", type=int, default=300)
     parser.add_argument("--max_depth", type=int, default=5)
