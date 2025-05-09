@@ -15,9 +15,8 @@ entry_points:
       subsample: { type: float, default: 0.8 }
       colsample_bytree: { type: float, default: 0.8 }
 
-    command: >
-      python train.py 
-      --data_path {data_path}
+    command: "
+      --python train.py
       --model_name {model_name}
       --n_estimators {n_estimators}
       --max_depth {max_depth}
@@ -26,4 +25,4 @@ entry_points:
       --reg_alpha {reg_alpha}
       --reg_lambda {reg_lambda}
       --subsample {subsample}
-      --colsample_bytree {colsample_bytree}
+      --colsample_bytree {colsample_bytree}"

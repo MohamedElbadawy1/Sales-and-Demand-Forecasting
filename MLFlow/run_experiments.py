@@ -1,44 +1,40 @@
-import argparse
 import mlflow
-import os
+import itertools
 
-def run_experiment(args):
-    if not os.path.exists("Original Data.csv"):
-        raise FileNotFoundError("Original Data.csv not found in current directory")
-    
-    mlflow.set_experiment("Sales_Forecasting")
-    
+def run_experiments():
+    param_grid = {
+        "model_name": ["XGBoost", "RandomForest", "GradientBoosting"],
+        "n_estimators": [100, 300],
+        "max_depth": [3, 5],
+        "learning_rate": [0.05, 0.1],
+        "gamma": [0, 1],
+        "reg_alpha": [0, 1],
+        "reg_lambda": [1, 2],
+        "subsample": [0.8, 1.0],
+        "colsample_bytree": [0.8, 1.0]
+    }
 
-    run = mlflow.run(
-        ".",
-        entry_point="main",
-        parameters={
-            "model_name": args.model_name,
-            "n_estimators": args.n_estimators,
-            "max_depth": args.max_depth,
-            "learning_rate": args.learning_rate,
-            "gamma": args.gamma,
-            "reg_alpha": args.reg_alpha,
-            "reg_lambda": args.reg_lambda,
-            "subsample": args.subsample,
-            "colsample_bytree": args.colsample_bytree
-        },
-    )
+    keys, values = zip(*param_grid.items())
+    experiments = [dict(zip(keys, v)) for v in itertools.product(*values)]
+
+    print(f"Starting MLflow experiments with {len(experiments)} runs...")
+
+    for i, params in enumerate(experiments, 1):
+        model_name = params.pop("model_name")  
+        print(f"\nRun {i}/{len(experiments)} - Model: {model_name} - Params: {params}")
+
+    
+        mlflow_params = {**params, "model_name": model_name}
+
+        run = mlflow.projects.run(
+            uri=".",
+            entry_point="main",
+            parameters=mlflow_params,
+            synchronous=True 
+        )
+
+        print(f"Run {i} finished with run_id: {run.run_id}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Run sales forecasting experiments')
-    
+    run_experiments()
 
-    parser.add_argument("--model_name", type=str, default="XGBoost")
-    parser.add_argument("--n_estimators", type=int, default=300)
-    parser.add_argument("--max_depth", type=int, default=5)
-    parser.add_argument("--learning_rate", type=float, default=0.05)
-    parser.add_argument("--gamma", type=float, default=0)
-    parser.add_argument("--reg_alpha", type=float, default=1)
-    parser.add_argument("--reg_lambda", type=float, default=2)
-    parser.add_argument("--subsample", type=float, default=0.8)
-    parser.add_argument("--colsample_bytree", type=float, default=0.8)
-    
-    args = parser.parse_args()
-    
-    run_experiment(args)
